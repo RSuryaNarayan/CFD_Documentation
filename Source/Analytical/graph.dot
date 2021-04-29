@@ -1,0 +1,21 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  adomain_decomposed -> P1;
+  adomain_decomposed -> P2;
+  adomain_decomposed -> P3;
+  adomain_decomposed -> P4;
+  analytical_solution -> adomain_decomposed;
+  analytical_solution -> compute_th_0;
+  compute_th_0 -> P1;
+  compute_th_0 -> P2;
+  compute_th_0 -> P3;
+  compute_th_0 -> P4;
+
+  P1 [URL="P1.html"];
+  P2 [URL="P2.html"];
+  P3 [URL="P3.html"];
+  P4 [URL="P4.html"];
+  adomain_decomposed [URL="adomain_decomposed.html"];
+  analytical_solution [URL="analytical_solution.html"];
+  compute_th_0 [URL="compute_th_0.html"];
+}
