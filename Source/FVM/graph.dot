@@ -1,0 +1,18 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  Finite_Volume_Method -> Sc;
+  Finite_Volume_Method -> dSdt;
+  Finite_Volume_Method -> update;
+  Finite_Volume_Method -> update_cell_1;
+  Finite_Volume_Method -> update_end;
+  Sc -> S;
+  Sc -> dSdt;
+
+  Finite_Volume_Method [URL="Finite_Volume_Method.html"];
+  S [URL="S.html"];
+  Sc [URL="Sc.html"];
+  dSdt [URL="dSdt.html"];
+  update [URL="update.html"];
+  update_cell_1 [URL="update_cell_1.html"];
+  update_end [URL="update_end.html"];
+}

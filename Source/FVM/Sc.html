@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of Sc</title>
+  <meta name="keywords" content="Sc">
+  <meta name="description" content="constant term">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html Source --><!-- menu.html FVM -->
+<h1>Sc
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>constant term</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function sc = Sc(w1, w2, t) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">constant term</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="S.html" class="code" title="function s = S(w1, w2, t)">S</a>	original source term</li><li><a href="dSdt.html" class="code" title="function sp = dSdt(w1, w2, t)">dSdt</a>	derivative and the Sp term</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="Finite_Volume_Method.html" class="code" title="function [t_1,x] = Finite_Volume_Method(params, mesh, tol)">Finite_Volume_Method</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%constant term</span>
+0002 <a name="_sub0" href="#_subfunctions" class="code">function sc = Sc(w1, w2, t)</a>
+0003     sc = <a href="S.html" class="code" title="function s = S(w1, w2, t)">S</a>(w1, w2, t) - (<a href="dSdt.html" class="code" title="function sp = dSdt(w1, w2, t)">dSdt</a>(w1, w2, t)) * t;
+0004 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 29-Apr-2021 20:17:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

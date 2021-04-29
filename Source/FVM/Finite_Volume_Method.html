@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of Finite_Volume_Method</title>
+  <meta name="keywords" content="Finite_Volume_Method">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html Source --><!-- menu.html FVM -->
+<h1>Finite_Volume_Method
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [t_1,x] = Finite_Volume_Method(params, mesh, tol) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="Sc.html" class="code" title="function sc = Sc(w1, w2, t)">Sc</a>	constant term</li><li><a href="dSdt.html" class="code" title="function sp = dSdt(w1, w2, t)">dSdt</a>	derivative and the Sp term</li><li><a href="update.html" class="code" title="function adv = update(te, tw, sc, sp, dx)">update</a>	main update</li><li><a href="update_cell_1.html" class="code" title="function cell_1 = update_cell_1(te, sc, sp, dx)">update_cell_1</a>	cell 1 update (to account for BC)</li><li><a href="update_end.html" class="code" title="function adv_end = update_end(te, tw, sc, sp, dx)">update_end</a>	cell n update (accounts for the shrunk ghost-cell</li><li><a href="../../Source/compute_w.html" class="code" title="function s = compute_w(Ra,Da,Nu,psi,xi,k_r)">compute_w</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../Source/main.html" class="code" title="">main</a>	%===========================PREAMBLE=====================================%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [t_1,x] = Finite_Volume_Method(params, mesh, tol)</a>
+0002     Ra = params(1);
+0003     Da = params(2);
+0004     Nu = params(3);
+0005     psi = params(4);
+0006     xi = params(5);
+0007     k_r = params(6);
+0008     omg = <a href="../../Source/compute_w.html" class="code" title="function s = compute_w(Ra,Da,Nu,psi,xi,k_r)">compute_w</a>(Ra,Da,Nu,psi,xi,k_r);
+0009     w1 = omg(2);
+0010     w2 = omg(3);
+0011     t=zeros(1,mesh+1);
+0012     t(end)=1;
+0013     dx=1/(mesh-1);
+0014     residual = 10;
+0015     <span class="keyword">while</span> residual&gt;tol
+0016         t_old = t;
+0017         <span class="keyword">for</span> i = 2 : mesh
+0018             sc = <a href="Sc.html" class="code" title="function sc = Sc(w1, w2, t)">Sc</a>(w1,w2,t_old(i));
+0019             sp = <a href="dSdt.html" class="code" title="function sp = dSdt(w1, w2, t)">dSdt</a>(w1, w2, t_old(i));
+0020             <span class="keyword">if</span> (i == 2)
+0021                 t(i) = <a href="update_cell_1.html" class="code" title="function cell_1 = update_cell_1(te, sc, sp, dx)">update_cell_1</a>(t_old(i+1), sc, sp, dx);
+0022             <span class="keyword">elseif</span> (i==mesh)
+0023                 t(i) = <a href="update_end.html" class="code" title="function adv_end = update_end(te, tw, sc, sp, dx)">update_end</a>(t_old(i+1), t_old(i-1), sc, sp, dx);
+0024             <span class="keyword">else</span>
+0025                 t(i) = <a href="update.html" class="code" title="function adv = update(te, tw, sc, sp, dx)">update</a>(t_old(i+1), t_old(i-1), sc, sp, dx);
+0026             <span class="keyword">end</span>
+0027         <span class="keyword">end</span>
+0028         t(1)=t(2); <span class="comment">%impose the BC at the left end</span>
+0029         residual = sum(abs(t_old-t));
+0030     <span class="keyword">end</span>
+0031     t_1 = t;
+0032     xs = dx/2;
+0033     xe = 1 - dx/2;
+0034     x = linspace(xs, xe, mesh-1);
+0035     x = [0,x,1];
+0036 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 29-Apr-2021 20:17:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
